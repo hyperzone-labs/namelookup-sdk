@@ -1,0 +1,35 @@
+{
+  "name": "@ziphius/namelookup-sdk",
+  "version": "1.0.0",
+  "description": "Aggregate all Blockchain Name Services on the internet.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ts-mocha -p ./tsconfig.mocha.json ./tests/*.spec.ts --timeout 60000",
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziphius-labs/namelookup-sdk.git"
+  },
+  "keywords": [
+    "blockchain",
+    "name",
+    "service",
+    "web3"
+  ],
+  "author": "Ziphius Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ziphius-labs/namelookup-sdk/issues"
+  },
+  "homepage": "https://github.com/ziphius-labs/namelookup-sdk#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^9.1.1",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}
