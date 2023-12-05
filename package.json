@@ -1,0 +1,25 @@
+{
+  "name": "@ziphius/namelookup-sdk",
+  "version": "1.0.0",
+  "description": "Aggregate all Blockchain Name Services on the internet.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziphius-labs/namelookup-sdk.git"
+  },
+  "keywords": [
+    "blockchain",
+    "name",
+    "service",
+    "web3"
+  ],
+  "author": "Ziphius Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ziphius-labs/namelookup-sdk/issues"
+  },
+  "homepage": "https://github.com/ziphius-labs/namelookup-sdk#readme"
+}
