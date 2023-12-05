@@ -1,11 +1,16 @@
 {
-  "name": "@ziphius/namelookup-sdk",
+  "name": "namelookup",
   "version": "1.0.0",
   "description": "Aggregate all Blockchain Name Services on the internet.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "ts-mocha -p ./tsconfig.mocha.json ./tests/*.spec.ts --timeout 60000",
-    "build": "tsc --build"
+    "build": "rm -rf dist && tsc --build",
+    "prepare" : "npm run build"
   },
   "repository": {
     "type": "git",
