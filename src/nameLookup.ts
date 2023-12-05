@@ -5,6 +5,8 @@ export default class NameLookUp {
     rpc: string
 
     constructor(network: string, rpc: string) {
+        this.network = network
+        this.rpc = rpc
     }
 
     private async getNameByAddress(address: string): Promise<string> {
