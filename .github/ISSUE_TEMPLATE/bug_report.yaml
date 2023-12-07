@@ -3,7 +3,7 @@ description: a bug report
 title: '[Bug]:'
 labels: ["bug"]
 projects: ["ziphius-labs/7"]
-assignees: ''
+assignees: []
 
 body:
   - type: markdown
