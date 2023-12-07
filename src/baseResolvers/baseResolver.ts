@@ -1,12 +1,36 @@
+import { OneID } from "@oneid-xyz/inspect"
+import { parseOneIDChainType } from "../utils/parseOneIDChain"
+
 export abstract class BaseResolver {
+    oneId: OneID
     constructor(
-        private readonly rpc: string
+        readonly network: string,
+        readonly rpc: string
     ) {
+        this.oneId = new OneID()
     }
 
-    abstract getNameByAddress(address: string): Promise<string>;
+    async initSystem() {
+        await this.oneId.systemConfig.initConfig()
+    }
 
-    async getNameByAddressOneId(address: string): Promise<string> {
-        return "terry.c98"
+    async getNameByAddress(address: string): Promise<string> {
+        try {
+            return await this.oneId.getPrimaryName(address)
+
+        } catch(err) {
+            return ""
+        }
+    }
+
+    async getLinkedWallet(name: string): Promise<string> {
+        try {
+            const oneIdChain = parseOneIDChainType(this.network)
+            const allLinkedWallets = await this.oneId.getWalletsByID(name, oneIdChain)
+
+            return allLinkedWallets[0].address
+        } catch(err) {
+            return ""
+        }
     }
 }

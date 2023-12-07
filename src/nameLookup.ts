@@ -1,4 +1,4 @@
-import { BaseResolver } from "./baseResolvers/baseResolver";
+import { CHAIN_TYPE, LinkedWallet } from "@oneid-xyz/inspect";
 
 class NameLookUp {
     resolver: any
@@ -10,16 +10,19 @@ class NameLookUp {
         this.resolver = null
     }
 
-    async init(): Promise<NameLookUp> {
+    async init() {
         const Resolver = await this.getResolver(this.network)
-        this.resolver = new Resolver(this.rpc)
-
-        return this
+        this.resolver = new Resolver(this.network, this.rpc)
+        await this.resolver.initSystem()
     }
 
 
     async getNameByAddress(address: string): Promise<string> {
-        return await this.resolver.getNameByAddress(address)
+        return this.resolver.getNameByAddress(address)
+    }
+
+    async getLinkedWallet(name: string, chain?: CHAIN_TYPE): Promise<LinkedWallet[]> {
+        return this.resolver.getLinkedWallet(name, chain)
     }
 
     private getResolver = async (network: string): Promise<any> => {
