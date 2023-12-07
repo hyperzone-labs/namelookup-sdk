@@ -10,7 +10,7 @@
   "scripts": {
     "test": "ts-mocha -p ./tsconfig.mocha.json ./tests/*.spec.ts --timeout 60000",
     "build": "rm -rf dist && tsc --build",
-    "prepare" : "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
