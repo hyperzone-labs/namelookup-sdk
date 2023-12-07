@@ -1,9 +1,10 @@
 ---
 name: Bug Report
-description: a bug report
+about: a bug report
 title: '[Bug]:'
-labels: ["bug", "triage"]
+labels: ["bug"]
 projects: ["ziphius-labs/7"]
+assignees: ''
 
 ---
 
