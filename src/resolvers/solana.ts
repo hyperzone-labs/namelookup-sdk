@@ -1,11 +1,12 @@
+import { ChainDefinition } from "../config";
 import { BaseResolver } from "./baseResolver";
 
-export class EVMResolver extends BaseResolver {
+export default class SolanaResolver extends BaseResolver {
     constructor(
-        network: string,
+        chain: ChainDefinition,
         rpc: string
     ) {
-        super(network, rpc)
+        super(chain, rpc)
     }
 
     public async getNameByAddress(address: string): Promise<string> {
