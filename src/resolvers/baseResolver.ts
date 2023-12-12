@@ -3,7 +3,8 @@ import { ChainDefinition } from "../config"
 
 export interface NameByAddressResponse {
     found: boolean,
-    name?: string
+    name?: string,
+    err?: any
 }
 
 export interface AddressByNameResponse {
@@ -40,6 +41,7 @@ export abstract class BaseResolver {
         } catch(err) {
             return {
                 found: false,
+                err
             }
         }
     }
