@@ -1,4 +1,4 @@
-import { Contract, Provider, ethers } from "ethers"
+import { AbstractProvider, Contract, Provider, ethers } from "ethers"
 import { ChainDefinition } from "../config";
 import { namehash } from "../utils/namehash";
 import { AddressByNameResponse, BaseResolver, NameByAddressResponse } from "./baseResolver";
@@ -21,16 +21,16 @@ export default class EVMResolver extends BaseResolver {
     getResolverContract(address: string) {
         return new Contract(address, ResolverABI, this.provider)
     }
-    
+
     public async getNameByAddress(address: string): Promise<NameByAddressResponse> {
-        const nameByAddressOneId: NameByAddressResponse = await super.getNameByAddress(address)
-        // return OneID
-        if (nameByAddressOneId.found) {
-            return nameByAddressOneId
-        }
-        
-        // resolve on-chain
         try {
+            const nameByAddressOneId: NameByAddressResponse = await super.getNameByAddress(address)
+            // return OneID
+            if (nameByAddressOneId.found) {
+                return nameByAddressOneId
+            }
+
+            // resolve on-chain
             const reverseNode = `${address.slice(2)}.addr.reverse`
             const reverseNamehash = namehash(reverseNode)
 
@@ -50,13 +50,45 @@ export default class EVMResolver extends BaseResolver {
                 err
             }
         }
-
+        
+        // fallback
         return {
             found: false
         }
     }
 
     public async getAddressByName(name: string): Promise<AddressByNameResponse> {
-        return super.getAddressByName(name)
+        try {
+            const addressByNameOneId: AddressByNameResponse = await super.getAddressByName(name)
+            if (addressByNameOneId.found) {
+                return addressByNameOneId
+            }
+
+            // resolve on-chain
+            const nameHash = namehash(name)
+            const resolverAddr = await this.ens.resolver(nameHash)
+            if (parseInt(resolverAddr, 16) === 0) {
+                throw "Address not found"
+            }
+
+            const resolver = new ethers.EnsResolver(this.provider as AbstractProvider, resolverAddr, name)
+            const address = await resolver.getAddress()
+
+            console.log(address)
+
+            if (!address) {
+                throw "Address not found"
+            } else {
+                return {
+                    found: true,
+                    address
+                }
+            }
+        } catch (err) {
+            return {
+                found: false,
+                err
+            }
+        }
     }
 }

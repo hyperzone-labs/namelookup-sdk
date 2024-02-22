@@ -9,7 +9,8 @@ export interface NameByAddressResponse {
 
 export interface AddressByNameResponse {
     found: boolean,
-    address?: string
+    address?: string,
+    err?: any
 }
 
 export abstract class BaseResolver {
@@ -56,7 +57,8 @@ export abstract class BaseResolver {
             }
         } catch(err) {
             return {
-                found: false
+                found: false,
+                err
             }
         }
     }
